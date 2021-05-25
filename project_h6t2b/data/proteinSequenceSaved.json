@@ -1,0 +1,9 @@
+{
+    "threshold": 1.5,
+    "linearMinimum": 20,
+    "sequenceList": [
+        "MHIHMHIHMHIHMHIHMHIHMHIHM",
+        "MHFHFHFHFHFHFHFHFHFHFHFHF",
+        "PMPMPMPMPMPMQPMPMPMR"
+    ]
+}
