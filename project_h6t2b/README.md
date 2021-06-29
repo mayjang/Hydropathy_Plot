@@ -24,11 +24,5 @@ technique called the "Hydropathy Plot", used to determine the hydrophobic/hydrop
 - As a user, I want to be able to save my list of amino acid sequences
 - As a user, I want to ba able to load my list of amino acid sequences
 
-**Phase 4: Task 2**
-
 - Made use of the Map interface in the PrimaryProteinAnalyzer class and created an amino acid hydrophilicity score map.
 - Methods involved: 'createAminoAcidMap', 'getAminoAcidMap', 'makeAminoAcidCodes', 'aminoAcidHydropathyScoreDictionary'
-
-**Phase 4: Task 3**
-
-- Possibly adding exceptions to make my code more robust. 
