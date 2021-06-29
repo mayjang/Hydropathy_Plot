@@ -4,21 +4,17 @@ import model.PrimaryProteinAnalyzer;
 import model.PrimaryProteinSequence;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
-import org.jfree.chart.JFreeChart;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 
@@ -112,7 +108,7 @@ public class GUI extends JFrame implements ActionListener {
     //MODIFIES: this
     //EFFECTS: creates labels with label name, location on panel, and size
     public void createLabels() {
-        labelForProteinSequence = new JLabel("Protein Sequence to Analyze:");
+        labelForProteinSequence = new JLabel("Protein Sequence to Analyze (M): ");
         labelForProteinSequence.setBounds(50, 30, 400, 40);
 
         labelForIndividualCode = new JLabel("Single Amino Acid Code:");
@@ -170,6 +166,9 @@ public class GUI extends JFrame implements ActionListener {
         JMenuItem save = new JMenuItem("Save");
         save.addActionListener(this);
         file.add(save);
+        JMenuItem openSequence = new JMenuItem("Open Sequence");
+        openSequence.addActionListener(this);
+        file.add(openSequence);
     }
 
     //MODIFIES: this
@@ -285,7 +284,14 @@ public class GUI extends JFrame implements ActionListener {
             actionPerformedOpen();
         } else if (userInput.equals("Save")) {
             actionPerformedSave();
-        } else if (userInput.equals("Add Sequence") || userInput.equals("addSequence")) {
+        } else if (userInput.equals("Open Sequence")) {
+            try {
+                actionPerformedOpenSequence();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+        else if (userInput.equals("Add Sequence") || userInput.equals("addSequence")) {
             actionPerformedAddSequenceToList();
         } else if (userInput.equals("Analyze Hydrophilicity") || userInput.equals("analyzeHydrophilicity")) {
             actionPerformedHydropathyScoreAnalysis();
@@ -296,6 +302,25 @@ public class GUI extends JFrame implements ActionListener {
         } else if (userInput.equals("Remove Sequence") || userInput.equals("removeSequence")) {
             actionPerformedRemoveSequence();
         }
+    }
+
+    private void actionPerformedOpenSequence() throws IOException {
+
+        JFileChooser chooser = new JFileChooser();
+        int userSelection = chooser.showOpenDialog(null);
+        if (userSelection != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+
+        File fileToOpen = chooser.getSelectedFile();
+        String pathToCsv = fileToOpen.getAbsolutePath();
+
+        BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsv));
+        String row;
+        row = csvReader.readLine();
+        fieldForProteinSequenceAdded.setText(row);
+
+        csvReader.close();
     }
 
     //EFFECTS: exits application window when user selects quit

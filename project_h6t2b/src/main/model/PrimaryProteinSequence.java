@@ -1,9 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 // Primary protein sequence later used to create a hydropathy plot
 public class PrimaryProteinSequence {
 
@@ -12,7 +8,6 @@ public class PrimaryProteinSequence {
     //REQUIRES: Amino acid sequence to be upper case, starts with "M"
     //EFFECTS: constructs an amino acid sequence given sequence in string
     public PrimaryProteinSequence(String sequence) {
-        //minoAcidSequence = sequence.toUpperCase();
         setSequence(sequence);
     }
 
